@@ -22,8 +22,6 @@ type applicationCommandOptionType int
 
 const (
 	applicationCommandOptionTypeSubcommand applicationCommandOptionType = iota + 1
-	applicationCommandOptionTypeSubcommandGroup
-	applicationCommandOptionTypeString
 )
 
 type applicationCommandOptionChoice struct {

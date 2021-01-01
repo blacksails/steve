@@ -2,6 +2,7 @@ package steve
 
 import (
 	"bytes"
+	"crypto/ed25519"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -14,10 +15,11 @@ import (
 )
 
 type Server struct {
-	log      logr.Logger
-	appID    string
-	botToken string
-	guildID  string
+	log       logr.Logger
+	appID     string
+	appPubKey ed25519.PublicKey
+	botToken  string
+	guildID   string
 }
 
 type Option func(*Server)
@@ -43,6 +45,12 @@ func BotToken(token string) Option {
 func GuildID(id string) Option {
 	return func(s *Server) {
 		s.guildID = id
+	}
+}
+
+func AppPubKey(pk string) Option {
+	return func(s *Server) {
+		s.appPubKey = []byte(pk)
 	}
 }
 
