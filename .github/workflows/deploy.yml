@@ -1,0 +1,23 @@
+name: deploy
+on: 
+  push:
+    branches:
+      - master
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: google-github-actions/setup-gcloud@master
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+      - run: |
+          gcloud functions deploy \
+            --allow-unauthenticated \
+            --trigger-http \
+            --runtime go113 \
+            --entry-point CloudFunction \
+            --region europe-west3 \
+            steve
