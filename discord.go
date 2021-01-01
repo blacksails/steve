@@ -35,3 +35,17 @@ type StringOrInt struct {
 	StrVal string
 	IntVal string
 }
+
+type webhookRequest struct {
+	Type webhookRequestType `json:"type"`
+}
+
+type webhookRequestType int
+
+const (
+	webhookRequestTypePing webhookRequestType = iota + 1
+)
+
+type webhookResponse struct {
+	Type webhookRequestType `json:"type"`
+}
