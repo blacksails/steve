@@ -18,6 +18,11 @@ func CloudFunction(w http.ResponseWriter, r *http.Request) {
 			BotToken(os.Getenv("STEVE_BOT_TOKEN")),
 			GuildID(os.Getenv("STEVE_GUILD_ID")),
 		)
+
+		if err := s.RegisterCommands(); err != nil {
+			s.log.Error(err, "could not register commands")
+		}
+
 		cloudFunctionHandler = s.Handler()
 	})
 
