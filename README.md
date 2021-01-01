@@ -14,3 +14,4 @@ Things we need to do
   - [ ] Add command handler in function
   - [ ] Look into RCON for relaying commands to the minecraft server
     - [ ] Enable RCON on the server
+- [ ] Add debug logging options

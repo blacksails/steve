@@ -79,7 +79,9 @@ func (s *Server) RegisterCommands() error {
 	if err := json.NewEncoder(&buf).Encode(cmd); err != nil {
 		return errors.Wrap(err, "could not encode application command")
 	}
-	fmt.Println(buf.String())
+	s.log.WithValues(
+		"body", buf.String(),
+	).Info("request")
 
 	req, err := http.NewRequest(
 		http.MethodPost,
@@ -102,7 +104,10 @@ func (s *Server) RegisterCommands() error {
 	if err := json.NewDecoder(res.Body).Decode(&resB); err != nil {
 		return errors.Wrap(err, "could not decode response")
 	}
-	fmt.Println(res.StatusCode)
-	fmt.Printf("%+v\n", resB)
+	s.log.WithValues(
+		"status", res.StatusCode,
+		"body", fmt.Sprintf("%+v\n", resB),
+	).Info("got response")
+
 	return nil
 }
