@@ -8,10 +8,12 @@ server.
 
 Things we need to do
 
-- [ ] Add action for deploying function when commits are on master
+- [x] Add action for deploying function when commits are on master
 - [ ] Log info we get from commands
 - [ ] Add command `say`, which writes in minecraft chat
+  - [ ] Register command
   - [ ] Add command handler in function
   - [ ] Look into RCON for relaying commands to the minecraft server
     - [ ] Enable RCON on the server
 - [ ] Add debug logging options
+- [ ] Make build faster

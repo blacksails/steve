@@ -2,6 +2,7 @@ package steve
 
 import (
 	"bytes"
+	"crypto/ed25519"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -14,10 +15,11 @@ import (
 )
 
 type Server struct {
-	log      logr.Logger
-	appID    string
-	botToken string
-	guildID  string
+	log       logr.Logger
+	appID     string
+	appPubKey ed25519.PublicKey
+	botToken  string
+	guildID   string
 }
 
 type Option func(*Server)
@@ -46,6 +48,12 @@ func GuildID(id string) Option {
 	}
 }
 
+func AppPubKey(pk string) Option {
+	return func(s *Server) {
+		s.appPubKey = []byte(pk)
+	}
+}
+
 func New(opts ...Option) *Server {
 	var s Server
 	for _, opt := range opts {
@@ -58,19 +66,19 @@ func New(opts ...Option) *Server {
 }
 
 func (s *Server) RegisterCommands() error {
-	cmd := ApplicationCommand{
+	cmd := applicationCommand{
 		Name:        "steve",
 		Description: "control minecraft server",
-		Options: []ApplicationCommandOption{
+		Options: []applicationCommandOption{
 			{
 				Name:        "whitelist",
 				Description: "whitelist a minecraft username",
-				Type:        ApplicationCommandOptionTypeSubcommand,
+				Type:        applicationCommandOptionTypeSubcommand,
 			},
 			{
 				Name:        "say",
 				Description: "say something in the minecraft chat",
-				Type:        ApplicationCommandOptionTypeSubcommand,
+				Type:        applicationCommandOptionTypeSubcommand,
 			},
 		},
 	}
