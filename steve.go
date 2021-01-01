@@ -58,19 +58,19 @@ func New(opts ...Option) *Server {
 }
 
 func (s *Server) RegisterCommands() error {
-	cmd := ApplicationCommand{
+	cmd := applicationCommand{
 		Name:        "steve",
 		Description: "control minecraft server",
-		Options: []ApplicationCommandOption{
+		Options: []applicationCommandOption{
 			{
 				Name:        "whitelist",
 				Description: "whitelist a minecraft username",
-				Type:        ApplicationCommandOptionTypeSubcommand,
+				Type:        applicationCommandOptionTypeSubcommand,
 			},
 			{
 				Name:        "say",
 				Description: "say something in the minecraft chat",
-				Type:        ApplicationCommandOptionTypeSubcommand,
+				Type:        applicationCommandOptionTypeSubcommand,
 			},
 		},
 	}

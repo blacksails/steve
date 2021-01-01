@@ -1,37 +1,37 @@
 package steve
 
-type ApplicationCommand struct {
+type applicationCommand struct {
 	ID            string                     `json:"id,omitempty"`
 	ApplicationID string                     `json:"application_id,omitempty"`
 	Name          string                     `json:"name,omitempty"`
 	Description   string                     `json:"description,omitempty"`
-	Options       []ApplicationCommandOption `json:"options,omitempty"`
+	Options       []applicationCommandOption `json:"options,omitempty"`
 }
 
-type ApplicationCommandOption struct {
-	Type        ApplicationCommandOptionType     `json:"type"`
+type applicationCommandOption struct {
+	Type        applicationCommandOptionType     `json:"type"`
 	Name        string                           `json:"name"`
 	Description string                           `json:"description"`
 	Default     *bool                            `json:"default,omitempty"`
 	Required    *bool                            `json:"required,omitempty"`
-	Choices     []ApplicationCommandOptionChoice `json:"choices,omitempty"`
-	Options     []ApplicationCommandOption       `json:"options,omitempty"`
+	Choices     []applicationCommandOptionChoice `json:"choices,omitempty"`
+	Options     []applicationCommandOption       `json:"options,omitempty"`
 }
 
-type ApplicationCommandOptionType int
+type applicationCommandOptionType int
 
 const (
-	ApplicationCommandOptionTypeSubcommand ApplicationCommandOptionType = iota + 1
-	ApplicationCommandOptionTypeSubcommandGroup
-	ApplicationCommandOptionTypeString
+	applicationCommandOptionTypeSubcommand applicationCommandOptionType = iota + 1
+	applicationCommandOptionTypeSubcommandGroup
+	applicationCommandOptionTypeString
 )
 
-type ApplicationCommandOptionChoice struct {
+type applicationCommandOptionChoice struct {
 	Name  string      `json:"name"`
-	Value StringOrInt `json:"value"`
+	Value stringOrInt `json:"value"`
 }
 
-type StringOrInt struct {
+type stringOrInt struct {
 	StrVal string
 	IntVal string
 }
