@@ -67,6 +67,11 @@ func (s *Server) RegisterCommands() error {
 				Description: "whitelist a minecraft username",
 				Type:        ApplicationCommandOptionTypeSubcommand,
 			},
+			{
+				Name:        "say",
+				Description: "say something in the minecraft chat",
+				Type:        ApplicationCommandOptionTypeSubcommand,
+			},
 		},
 	}
 
