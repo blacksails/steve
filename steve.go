@@ -18,7 +18,6 @@ type Server struct {
 	appID    string
 	botToken string
 	guildID  string
-	h        http.HandlerFunc
 }
 
 type Option func(*Server)
@@ -95,7 +94,9 @@ func (s *Server) RegisterCommands() error {
 	}
 
 	resB := map[string]interface{}{}
-	json.NewDecoder(res.Body).Decode(&resB)
+	if err := json.NewDecoder(res.Body).Decode(&resB); err != nil {
+		return errors.Wrap(err, "could not decode response")
+	}
 	fmt.Println(res.StatusCode)
 	fmt.Printf("%+v\n", resB)
 	return nil
