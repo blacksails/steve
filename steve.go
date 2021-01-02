@@ -48,9 +48,9 @@ func GuildID(id string) Option {
 	}
 }
 
-func AppPubKey(pk string) Option {
+func AppPubKey(pk []byte) Option {
 	return func(s *Server) {
-		s.appPubKey = []byte(pk)
+		s.appPubKey = pk
 	}
 }
 

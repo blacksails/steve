@@ -3,6 +3,7 @@ package steve
 import (
 	"bytes"
 	"crypto/ed25519"
+	"encoding/hex"
 	"io/ioutil"
 	"net/http"
 )
@@ -39,10 +40,11 @@ func (s *Server) handlePing(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) verifySignature(r *http.Request, body []byte) bool {
-	if len(s.appPubKey) == 0 {
-		return false
-	}
 	sig := r.Header.Get("X-Signature-Ed25519")
+	sigDecoded, err := hex.DecodeString(sig)
+	if err != nil {
+		s.log.Error(err, "could not decode signature")
+	}
 	t := r.Header.Get("X-Signature-Timestamp")
 	var b bytes.Buffer
 	if _, err := b.Write([]byte(t)); err != nil {
@@ -53,5 +55,5 @@ func (s *Server) verifySignature(r *http.Request, body []byte) bool {
 		s.log.Error(err, "could not write body")
 		return false
 	}
-	return ed25519.Verify(s.appPubKey, b.Bytes(), []byte(sig))
+	return ed25519.Verify(s.appPubKey, b.Bytes(), sigDecoded)
 }
