@@ -1,7 +1,6 @@
 package steve
 
 import (
-	"encoding/hex"
 	"net/http"
 	"os"
 	"sync"
@@ -17,16 +16,10 @@ func CloudFunction(w http.ResponseWriter, r *http.Request) {
 
 		s := New(
 			AppID(os.Getenv("STEVE_APPLICATION_ID")),
+			AppPubKey(os.Getenv("STEVE_APPLICATION_PUBKEY")),
 			BotToken(os.Getenv("STEVE_BOT_TOKEN")),
 			GuildID(os.Getenv("STEVE_GUILD_ID")),
 		)
-
-		apk, err := hex.DecodeString(os.Getenv("STEVE_APPLICATION_PUBKEY"))
-		if err != nil {
-			s.log.Error(err, "could not decode pubkey")
-		}
-
-		AppPubKey(apk)(s)
 
 		if err := s.RegisterCommands(); err != nil {
 			s.log.Error(err, "could not register commands")
