@@ -40,7 +40,7 @@ type interaction struct {
 	Data      applicationCommandInteractionData `json:"data,omitempty"`
 	GuildID   string                            `json:"guild_id,omitempty"`
 	ChannelID string                            `json:"channel_id,omitempty"`
-	Member    string                            `json:"member,omitempty"`
+	Member    guildMember                       `json:"member,omitempty"`
 	Token     string                            `json:"token,omitempty"`
 	Version   int                               `json:"version,omitempty"`
 }
@@ -61,4 +61,31 @@ type applicationCommandInteractionDataOption struct {
 	Name    string                                    `json:"name,omitempty"`
 	Value   string                                    `json:"value,omitempty"`
 	Options []applicationCommandInteractionDataOption `json:"options,omitempty"`
+}
+
+type guildMember struct {
+	User         user     `json:"user,omitempty"`
+	Nick         string   `json:"nick,omitempty"`
+	Roles        []string `json:"roles,omitempty"`
+	JoinedAt     string   `json:"joined_at,omitempty"`
+	PremiumSince string   `json:"premium_since,omitempty"`
+	Deaf         bool     `json:"deaf,omitempty"`
+	Mute         bool     `json:"mute,omitempty"`
+	Pending      bool     `json:"pending,omitempty"`
+}
+
+type user struct {
+	ID            string `json:"id,omitempty"`
+	Username      string `json:"username,omitempty"`
+	Discriminator string `json:"discriminator,omitempty"`
+	Avatar        string `json:"avatar,omitempty"`
+	Bot           string `json:"bot,omitempty"`
+	System        bool   `json:"system,omitempty"`
+	MFAEnabled    bool   `json:"mfa_enabled,omitempty"`
+	Locale        string `json:"locale,omitempty"`
+	Verified      bool   `json:"verified,omitempty"`
+	Email         string `json:"email,omitempty"`
+	Flags         int    `json:"flags,omitempty"`
+	PremiumType   int    `json:"premium_type,omitempty"`
+	PublicFlags   int    `json:"public_flags,omitempty"`
 }
