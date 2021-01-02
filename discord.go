@@ -34,16 +34,31 @@ type stringOrInt struct {
 	IntVal string
 }
 
-type webhookRequest struct {
-	Type webhookRequestType `json:"type"`
+type interaction struct {
+	ID        string                            `json:"id,omitempty"`
+	Type      interactionType                   `json:"type,omitempty"`
+	Data      applicationCommandInteractionData `json:"data,omitempty"`
+	GuildID   string                            `json:"guild_id,omitempty"`
+	ChannelID string                            `json:"channel_id,omitempty"`
+	Member    string                            `json:"member,omitempty"`
+	Token     string                            `json:"token,omitempty"`
+	Version   int                               `json:"version,omitempty"`
 }
 
-type webhookRequestType int
+type interactionType int
 
 const (
-	webhookRequestTypePing webhookRequestType = iota + 1
+	interactionTypePing interactionType = iota + 1
 )
 
-type webhookResponse struct {
-	Type webhookRequestType `json:"type"`
+type applicationCommandInteractionData struct {
+	ID      string                                    `json:"id,omitempty"`
+	Name    string                                    `json:"name,omitempty"`
+	Options []applicationCommandInteractionDataOption `json:"options,omitempty"`
+}
+
+type applicationCommandInteractionDataOption struct {
+	Name    string                                    `json:"name,omitempty"`
+	Value   string                                    `json:"value,omitempty"`
+	Options []applicationCommandInteractionDataOption `json:"options,omitempty"`
 }

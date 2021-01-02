@@ -23,21 +23,23 @@ func (s *Server) Handler() http.HandlerFunc {
 			return
 		}
 
-		var wr webhookRequest
-		if err := decode(r, &wr); err != nil {
+		var i interaction
+		if err := decode(r, &i); err != nil {
 			s.respondErr(w, r, err, http.StatusBadRequest)
 			return
 		}
 
-		switch wr.Type {
-		case webhookRequestTypePing:
+		switch i.Type {
+		case interactionTypePing:
 			s.handlePing(w, r)
+		default:
+			s.log.Info("got command", "cmd", i)
 		}
 	}
 }
 
 func (s *Server) handlePing(w http.ResponseWriter, r *http.Request) {
-	s.respond(w, r, webhookResponse{Type: webhookRequestTypePing}, http.StatusOK)
+	s.respond(w, r, interaction{Type: interactionTypePing}, http.StatusOK)
 }
 
 func (s *Server) verifySignature(r *http.Request, body []byte) bool {
