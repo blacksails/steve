@@ -20,6 +20,7 @@ jobs:
             --runtime go113 \
             --entry-point CloudFunction \
             --update-env-vars STEVE_APPLICATION_ID=${{ secrets.STEVE_APPLICATION_ID }} \
+            --update-env-vars STEVE_APPLICATION_PUBKEY=${{ secrets.STEVE_APPLICATION_PUBKEY }} \
             --update-env-vars STEVE_BOT_TOKEN=${{ secrets.STEVE_BOT_TOKEN }} \
             --update-env-vars STEVE_GUILD_ID=${{ secrets.STEVE_GUILD_ID }} \
             --region europe-west3 \
