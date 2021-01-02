@@ -39,6 +39,9 @@ func (s *Server) handlePing(w http.ResponseWriter, r *http.Request) {
 }
 
 func (s *Server) verifySignature(r *http.Request, body []byte) bool {
+	if len(s.appPubKey) == 0 {
+		return false
+	}
 	sig := r.Header.Get("X-Signature-Ed25519")
 	t := r.Header.Get("X-Signature-Timestamp")
 	var b bytes.Buffer
