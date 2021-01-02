@@ -25,6 +25,7 @@ func (s *Server) Handler() http.HandlerFunc {
 
 		var i interaction
 		if err := decode(r, &i); err != nil {
+			s.log.Error(err, "could not decode interaction")
 			s.respondErr(w, r, err, http.StatusBadRequest)
 			return
 		}
